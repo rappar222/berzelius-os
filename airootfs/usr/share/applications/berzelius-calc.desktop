@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Berzelius Chemical Calculator
+Comment=Stoichiometry, molar mass, and titration assistant
+Exec=xfce4-terminal --title="Berzelius Stoichiometry Crucible" -e berzelius-calc
+Icon=berzelius-beaker
+Terminal=false
+Categories=Science;Chemistry;Education;
+StartupNotify=true

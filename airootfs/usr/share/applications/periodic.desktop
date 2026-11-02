@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Periodic Table (CLI)
+Comment=Berzelius Periodic System of the Elements
+Exec=xfce4-terminal --title="Periodic Table of Elements" -e "periodic"
+Icon=berzelius-beaker
+Terminal=false
+Categories=Science;Chemistry;Education;
+StartupNotify=true

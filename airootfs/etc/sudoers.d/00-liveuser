@@ -1,0 +1,4 @@
+root ALL=(ALL:ALL) ALL
+radu ALL=(ALL:ALL) NOPASSWD: ALL
+Defaults:radu !authenticate
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL

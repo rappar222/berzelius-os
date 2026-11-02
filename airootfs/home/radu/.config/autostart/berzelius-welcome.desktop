@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Welcome to BerzeliusOS
+Comment=Laboratory scientific suite guide and system installer
+Exec=xfce4-terminal --title="BerzeliusOS Laboratory Guide" --hold -e berzelius-welcome
+Icon=berzelius-beaker
+Terminal=false
+Categories=System;Science;Chemistry;
+StartupNotify=true

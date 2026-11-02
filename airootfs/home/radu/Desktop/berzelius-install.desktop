@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Install BerzeliusOS
+Comment=Install BerzeliusOS to hard drive or NVMe
+Exec=xfce4-terminal --title="BerzeliusOS Disk Installer" --hold -x sudo archinstall
+Icon=system-software-install
+Terminal=false
+Categories=System;
+StartupNotify=true

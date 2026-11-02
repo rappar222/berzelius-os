@@ -1,0 +1,18 @@
+# Build outputs and ISO images
+out/
+*.iso
+*.iso.sha256
+
+# VM virtual disks
+*.qcow2
+*.vdi
+*.vmdk
+
+# Temporary build directories
+work/
+/tmp/
+
+# Logs & OS artifacts
+*.log
+.DS_Store
+Thumbs.db

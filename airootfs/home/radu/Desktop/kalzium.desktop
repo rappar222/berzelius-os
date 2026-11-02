@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Kalzium Periodic Table
+Comment=Interactive periodic table of chemical elements
+Exec=kalzium
+Icon=kalzium
+Terminal=false
+Categories=Science;Chemistry;Education;
+StartupNotify=true

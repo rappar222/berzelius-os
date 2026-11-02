@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""
+BerzeliusOS Periodic Table of Elements
+Highlights the foundational elements and the legacy of Jöns Jacob Berzelius.
+"""
+
+import sys
+
+ELEMENT_DATA = [
+    (1, "H", "Hydrogen", 1.008, "Nonmetal", 1, 1, "Cavendish (1766)"),
+    (2, "He", "Helium", 4.003, "Noble Gas", 1, 18, "Janssen & Lockyer (1868)"),
+    (3, "Li", "Lithium", 6.941, "Alkali Metal", 2, 1, "Arfwedson (1817 - in Berzelius' lab!)"),
+    (4, "Be", "Beryllium", 9.012, "Alkaline Earth", 2, 2, "Vauquelin (1798)"),
+    (5, "B", "Boron", 10.81, "Metalloid", 2, 13, "Gay-Lussac & Thénard (1808)"),
+    (6, "C", "Carbon", 12.011, "Nonmetal", 2, 14, "Ancient"),
+    (7, "N", "Nitrogen", 14.007, "Nonmetal", 2, 15, "Rutherford (1772)"),
+    (8, "O", "Oxygen", 15.999, "Nonmetal", 2, 16, "Priestley & Scheele (1774)"),
+    (9, "F", "Fluorine", 18.998, "Halogen", 2, 17, "Moissan (1886)"),
+    (10, "Ne", "Neon", 20.180, "Noble Gas", 2, 18, "Ramsay & Travers (1898)"),
+    (11, "Na", "Sodium", 22.990, "Alkali Metal", 3, 1, "Davy (1807)"),
+    (12, "Mg", "Magnesium", 24.305, "Alkaline Earth", 3, 2, "Davy (1808)"),
+    (13, "Al", "Aluminium", 26.982, "Post-transition", 3, 13, "Ørsted (1825)"),
+    (14, "Si", "Silicon", 28.085, "Metalloid", 3, 14, "★ Jöns Jacob Berzelius (1824)"),
+    (15, "P", "Phosphorus", 30.974, "Nonmetal", 3, 15, "Brand (1669)"),
+    (16, "S", "Sulfur", 32.06, "Nonmetal", 3, 16, "Ancient"),
+    (17, "Cl", "Chlorine", 35.45, "Halogen", 3, 17, "Scheele (1774)"),
+    (18, "Ar", "Argon", 39.948, "Noble Gas", 3, 18, "Rayleigh & Ramsay (1894)"),
+    (19, "K", "Potassium", 39.098, "Alkali Metal", 4, 1, "Davy (1807)"),
+    (20, "Ca", "Calcium", 40.078, "Alkaline Earth", 4, 2, "Davy (1808)"),
+    (21, "Sc", "Scandium", 44.956, "Transition Metal", 4, 3, "Nilson (1879)"),
+    (22, "Ti", "Titanium", 47.867, "Transition Metal", 4, 4, "Gregor (1791)"),
+    (23, "V", "Vanadium", 50.942, "Transition Metal", 4, 5, "del Río (1801) / Sefström & Berzelius (1831)"),
+    (24, "Cr", "Chromium", 51.996, "Transition Metal", 4, 6, "Vauquelin (1797)"),
+    (25, "Mn", "Manganese", 54.938, "Transition Metal", 4, 7, "Gahn (1774)"),
+    (26, "Fe", "Iron", 55.845, "Transition Metal", 4, 8, "Ancient"),
+    (27, "Co", "Cobalt", 58.933, "Transition Metal", 4, 9, "Brandt (1735)"),
+    (28, "Ni", "Nickel", 58.693, "Transition Metal", 4, 10, "Cronstedt (1751)"),
+    (29, "Cu", "Copper", 63.546, "Transition Metal", 4, 11, "Ancient"),
+    (30, "Zn", "Zinc", 65.38, "Post-transition", 4, 12, "Indian metallurgists (1000 BCE)"),
+    (31, "Ga", "Gallium", 69.723, "Post-transition", 4, 13, "Lecoq de Boisbaudran (1875)"),
+    (32, "Ge", "Germanium", 72.630, "Metalloid", 4, 14, "Winkler (1886)"),
+    (33, "As", "Arsenic", 74.922, "Metalloid", 4, 15, "Albertus Magnus (1250)"),
+    (34, "Se", "Selenium", 78.971, "Nonmetal", 4, 16, "★ Jöns Jacob Berzelius (1817)"),
+    (35, "Br", "Bromine", 79.904, "Halogen", 4, 17, "Balard (1826)"),
+    (36, "Kr", "Krypton", 83.798, "Noble Gas", 4, 18, "Ramsay & Travers (1898)"),
+    (40, "Zr", "Zirconium", 91.224, "Transition Metal", 5, 4, "★ Isolated by Jöns Jacob Berzelius (1824)"),
+    (58, "Ce", "Cerium", 140.116, "Lanthanide", 6, 4, "★ Jöns Jacob Berzelius & Hisinger (1803)"),
+    (90, "Th", "Thorium", 232.038, "Actinide", 7, 4, "★ Jöns Jacob Berzelius (1829)"),
+]
+
+def show_grid():
+    print("\033[1;36m" + "=" * 78)
+    print(" 🧪 BerzeliusOS - Periodic System of the Elements")
+    print(" ★ = Discovered or Isolated by Jöns Jacob Berzelius")
+    print("=" * 78 + "\033[0m\n")
+    print("  \033[1;37m1  H                                                                   He\033[0m")
+    print("  \033[1;37m2  Li Be                                           B   C   N   O   F  Ne\033[0m")
+    print("  \033[1;37m3  Na Mg                                          Al  \033[1;35mSi★\033[1;37m P   S  Cl  Ar\033[0m")
+    print("  \033[1;37m4  K  Ca Sc Ti  V  Cr Mn Fe Co Ni Cu Zn Ga Ge As  \033[1;35mSe★\033[1;37m Br Kr\033[0m")
+    print("  \033[1;37m5  Rb Sr  Y \033[1;35mZr★\033[1;37mNb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te  I  Xe\033[0m")
+    print("  \033[1;37m6  Cs Ba La Hf Ta  W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn\033[0m")
+    print("  \033[1;37m7  Fr Ra Ac Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og\033[0m")
+    print("\n      \033[1;35mCe★\033[1;37m Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu (Lanthanides)")
+    print("      \033[1;35mTh★\033[1;37m Pa  U Np Pu Am Cm Bk Cf Es Fm Md No Lr (Actinides)\033[0m\n")
+    print("Type \033[1;33mperiodic <symbol>\033[0m (e.g. periodic Si) or \033[1;33mkalzium\033[0m for full GUI.")
+
+def show_element(symbol):
+    match = None
+    for item in ELEMENT_DATA:
+        if item[1].lower() == symbol.lower() or str(item[0]) == symbol:
+            match = item
+            break
+    if not match:
+        print(f"Element '{symbol}' not found in quick table. Launch 'kalzium' for full 118-element database.")
+        return
+    z, sym, name, mass, group_name, period, group, discoverer = match
+    print("\033[1;36m" + "-" * 56 + "\033[0m")
+    print(f"  \033[1;33m[{z}] {name} ({sym})\033[0m")
+    print("\033[1;36m" + "-" * 56 + "\033[0m")
+    print(f"  Standard Atomic Weight: \033[1;32m{mass} u\033[0m")
+    print(f"  Chemical Series:        {group_name}")
+    print(f"  Period: {period}, Group: {group}")
+    if "★" in discoverer:
+        print(f"  Discovered by:          \033[1;35m{discoverer}\033[0m")
+    else:
+        print(f"  Discovered by:          {discoverer}")
+    print("\033[1;36m" + "-" * 56 + "\033[0m\n")
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        show_element(sys.argv[1])
+    else:
+        show_grid()

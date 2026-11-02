@@ -1,0 +1,10 @@
+Welcome to BerzeliusOS - The Tall-Form Chemistry Glassware Edition.
+Dedicated to Jöns Jacob Berzelius (1779-1848).
+
+* System: Rolling Arch Linux base
+* Laboratory Suite: Kalzium, Avogadro, Gnuplot, Python Scientific Stack
+* Stoichiometry Utility: Run 'berzelius-calc' or 'periodic'
+* Disk Installer: Run 'archinstall' or launch from desktop
+* User: radu (password: radu, sudo enabled)
+
+Type 'berzelius-welcome' for the interactive lab guide.

@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+"""
+BerzeliusOS Stoichiometry & Chemical Calculator
+Named in honour of Jöns Jacob Berzelius (1779-1848)
+Inventor of modern chemical elemental symbol notation.
+"""
+
+import sys
+import re
+
+ELEMENTS = {
+    'H': 1.008, 'He': 4.0026, 'Li': 6.94, 'Be': 9.0122, 'B': 10.81,
+    'C': 12.011, 'N': 14.007, 'O': 15.999, 'F': 18.998, 'Ne': 20.180,
+    'Na': 22.990, 'Mg': 24.305, 'Al': 26.982, 'Si': 28.085, 'P': 30.974,
+    'S': 32.06, 'Cl': 35.45, 'Ar': 39.948, 'K': 39.098, 'Ca': 40.078,
+    'Sc': 44.956, 'Ti': 47.867, 'V': 50.942, 'Cr': 51.996, 'Mn': 54.938,
+    'Fe': 55.845, 'Co': 58.933, 'Ni': 58.693, 'Cu': 63.546, 'Zn': 65.38,
+    'Ga': 69.723, 'Ge': 72.630, 'As': 74.922, 'Se': 78.971, 'Br': 79.904,
+    'Kr': 83.798, 'Rb': 85.468, 'Sr': 87.62, 'Y': 88.906, 'Zr': 91.224,
+    'Nb': 92.906, 'Mo': 95.95, 'Tc': 98.0, 'Ru': 101.07, 'Rh': 102.91,
+    'Pd': 106.42, 'Ag': 107.87, 'Cd': 112.41, 'In': 114.82, 'Sn': 118.71,
+    'Sb': 121.76, 'Te': 127.60, 'I': 126.90, 'Xe': 131.29, 'Cs': 132.91,
+    'Ba': 137.33, 'La': 138.91, 'Ce': 140.12, 'Pr': 140.91, 'Nd': 144.24,
+    'Pm': 145.0, 'Sm': 150.36, 'Eu': 151.96, 'Gd': 157.25, 'Tb': 158.93,
+    'Dy': 162.50, 'Ho': 164.93, 'Er': 167.26, 'Tm': 168.93, 'Yb': 173.05,
+    'Lu': 174.97, 'Hf': 178.49, 'Ta': 180.95, 'W': 183.84, 'Re': 186.21,
+    'Os': 190.23, 'Ir': 192.22, 'Pt': 195.08, 'Au': 196.97, 'Hg': 200.59,
+    'Tl': 204.38, 'Pb': 207.2, 'Bi': 208.98, 'Th': 232.04, 'Pa': 231.04,
+    'U': 238.03, 'Np': 237.0, 'Pu': 244.0
+}
+
+BERZELIUS_ELEMENTS = {'Ce', 'Se', 'Si', 'Th', 'Zr'}
+
+def parse_formula(formula):
+    # Expand parenthesized groups recursively
+    def expand_parens(s):
+        pattern = r'\(([^()]+)\)(\d*)'
+        while True:
+            match = re.search(pattern, s)
+            if not match:
+                break
+            group, count_str = match.groups()
+            multiplier = int(count_str) if count_str else 1
+            expanded = ""
+            for elem, cnt in re.findall(r'([A-Z][a-z]*)(\d*)', group):
+                c = (int(cnt) if cnt else 1) * multiplier
+                expanded += f"{elem}{c}"
+            s = s[:match.start()] + expanded + s[match.end():]
+        return s
+
+    expanded = expand_parens(formula.strip())
+    element_pattern = r'([A-Z][a-z]*)(\d*)'
+    matches = re.findall(element_pattern, expanded)
+    
+    counts = {}
+    for elem, cnt in matches:
+        count = int(cnt) if cnt else 1
+        counts[elem] = counts.get(elem, 0) + count
+    return counts
+
+def calculate_molar_mass(formula):
+    try:
+        counts = parse_formula(formula)
+    except Exception as e:
+        print(f"\033[91mError parsing formula '{formula}': {e}\033[0m")
+        return
+
+    unknowns = [elem for elem in counts if elem not in ELEMENTS]
+    if unknowns:
+        print(f"\033[91mUnknown element symbol(s): {', '.join(unknowns)}\033[0m")
+        return
+
+    total_mass = sum(ELEMENTS[elem] * count for elem, count in counts.items())
+
+    print("\033[1;36m============================================================\033[0m")
+    print(f"\033[1;37m🧪 Chemical Analysis for:\033[0m \033[1;33m{formula}\033[0m")
+    print("\033[1;36m============================================================\033[0m")
+    print(f"  \033[1mTotal Molar Mass:\033[0m \033[1;32m{total_mass:.4f} g/mol\033[0m\n")
+    print(f"  {'Element':<10} {'At. Mass':<12} {'Count':<8} {'Mass (g)':<12} {'Mass %':<10}")
+    print("  " + "-" * 52)
+
+    for elem, count in sorted(counts.items(), key=lambda x: ELEMENTS[x[0]] * x[1], reverse=True):
+        atomic_mass = ELEMENTS[elem]
+        contrib = atomic_mass * count
+        pct = (contrib / total_mass) * 100
+        tag = " \033[1;35m★ (Berzelius)\033[0m" if elem in BERZELIUS_ELEMENTS else ""
+        print(f"  \033[1;37m{elem:<10}\033[0m {atomic_mass:<12.4f} {count:<8} {contrib:<12.4f} {pct:>6.2f}%{tag}")
+    
+    print("\033[1;36m============================================================\033[0m")
+    if any(elem in BERZELIUS_ELEMENTS for elem in counts):
+        print("  \033[1;35m★ Contains element(s) discovered or isolated by J. J. Berzelius!\033[0m")
+    print()
+
+def titration_mode():
+    print("\033[1;36m--- Berzelius Beaker Titration Calculator (C1*V1 = C2*V2) ---\033[0m")
+    try:
+        c1 = float(input("Enter Titrant Concentration C1 (mol/L): "))
+        v1 = float(input("Enter Titrant Volume used V1 (mL): "))
+        v2 = float(input("Enter Analyte Volume in Beaker V2 (mL): "))
+        if v2 <= 0:
+            print("Volume cannot be zero.")
+            return
+        c2 = (c1 * v1) / v2
+        print(f"\n\033[1;32mAnalyte Concentration C2: {c2:.6f} mol/L (M)\033[0m")
+    except ValueError:
+        print("Invalid numerical input.")
+
+def solution_prep():
+    print("\033[1;36m--- Solution Preparation Calculator (m = M * V * C) ---\033[0m")
+    formula = input("Enter Chemical Formula (e.g. NaCl, CuSO4): ").strip()
+    try:
+        counts = parse_formula(formula)
+        mm = sum(ELEMENTS[e] * c for e, c in counts.items())
+        vol_ml = float(input("Target Solution Volume in Beaker (mL): "))
+        conc = float(input("Target Concentration (mol/L or M): "))
+        mass_needed = mm * (vol_ml / 1000.0) * conc
+        print(f"\n\033[1;32mMass of {formula} to dissolve: {mass_needed:.4f} g\033[0m")
+        print(f"Fill the Berzelius beaker with distilled solvent to graduation mark {vol_ml:.1f} mL.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+def main():
+    if len(sys.argv) > 1:
+        arg = sys.argv[1].strip()
+        if arg in ('-h', '--help'):
+            print("Usage:")
+            print("  berzelius-calc <formula>          Calculate molar mass and elemental % (e.g. berzelius-calc H2SO4)")
+            print("  berzelius-calc --titrate          Titration calculation for laboratory beakers")
+            print("  berzelius-calc --prep             Solution mass preparation helper")
+            print("  berzelius-calc                    Interactive chemical workbench")
+            return
+        elif arg == '--titrate':
+            titration_mode()
+            return
+        elif arg == '--prep':
+            solution_prep()
+            return
+        else:
+            calculate_molar_mass(arg)
+            return
+
+    # Interactive loop
+    print("\033[1;36m")
+    print("      .---.       BerzeliusOS Chemical Stoichiometry Crucible")
+    print("     /     \\      Tall-Form Borosilicate Laboratory Glassware")
+    print("    | 400ml |     Dedicated to Jöns Jacob Berzelius")
+    print("    |~ ~ ~ ~|")
+    print("    \\_______/")
+    print("\033[0m")
+    while True:
+        try:
+            line = input("\033[1;33mbeaker>\033[0m Enter formula, [t]itrate, [p]rep, or [q]uit: ").strip()
+            if not line or line.lower() in ('q', 'quit', 'exit'):
+                print("Exiting Berzelius stoichiometry crucible.")
+                break
+            elif line.lower() in ('t', 'titrate'):
+                titration_mode()
+            elif line.lower() in ('p', 'prep'):
+                solution_prep()
+            else:
+                calculate_molar_mass(line)
+        except (KeyboardInterrupt, EOFError):
+            print("\nExiting.")
+            break
+
+if __name__ == "__main__":
+    main()

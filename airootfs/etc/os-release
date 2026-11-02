@@ -1,0 +1,11 @@
+NAME="BerzeliusOS"
+PRETTY_NAME="BerzeliusOS Linux (Tall-Form Beaker Edition)"
+ID=berzeliusos
+ID_LIKE=arch
+BUILD_ID=rolling
+ANSI_COLOR="38;2;56;189;248"
+HOME_URL="https://github.com/berzeliusos"
+DOCUMENTATION_URL="https://github.com/berzeliusos/docs"
+SUPPORT_URL="https://github.com/berzeliusos/community"
+BUG_REPORT_URL="https://github.com/berzeliusos/issues"
+LOGO=berzelius-beaker

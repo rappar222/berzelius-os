@@ -1,0 +1,77 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "/etc/fastfetch/berzelius-logo.txt",
+    "color": {
+      "1": "cyan"
+    },
+    "padding": {
+      "top": 1,
+      "left": 2,
+      "right": 3
+    }
+  },
+  "display": {
+    "separator": " 🧪 "
+  },
+  "modules": [
+    "title",
+    "separator",
+    {
+      "type": "os",
+      "key": "Distro",
+      "format": "BerzeliusOS Linux (Tall-Form Beaker Edition)"
+    },
+    {
+      "type": "host",
+      "key": "Apparatus"
+    },
+    {
+      "type": "kernel",
+      "key": "Reaction Core"
+    },
+    {
+      "type": "uptime",
+      "key": "Synthesis Time"
+    },
+    {
+      "type": "packages",
+      "key": "Reagents"
+    },
+    {
+      "type": "shell",
+      "key": "CLI Crucible"
+    },
+    {
+      "type": "de",
+      "key": "Glassware UI"
+    },
+    {
+      "type": "wm",
+      "key": "Compositor"
+    },
+    {
+      "type": "terminal",
+      "key": "Terminal"
+    },
+    {
+      "type": "cpu",
+      "key": "Catalyst (CPU)"
+    },
+    {
+      "type": "gpu",
+      "key": "Renderer"
+    },
+    {
+      "type": "memory",
+      "key": "Flask Capacity"
+    },
+    {
+      "type": "disk",
+      "key": "Storage Vessel"
+    },
+    "break",
+    "colors"
+  ]
+}

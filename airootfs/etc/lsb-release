@@ -1,0 +1,4 @@
+DISTRIB_ID=BerzeliusOS
+DISTRIB_RELEASE=rolling
+DISTRIB_CODENAME=tall-form
+DISTRIB_DESCRIPTION="BerzeliusOS Linux (Tall-Form Beaker Edition)"

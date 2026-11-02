@@ -1,0 +1,12 @@
+[Unit]
+Description=BerzeliusOS Live Session Configuration
+Before=display-manager.service getty@tty1.service
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/berzelius-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

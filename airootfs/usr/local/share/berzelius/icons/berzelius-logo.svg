@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="iconBg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </radialGradient>
+    <linearGradient id="liquid" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+    <linearGradient id="glass" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4" />
+      <stop offset="15%" stop-color="#38bdf8" stop-opacity="0.1" />
+      <stop offset="85%" stop-color="#38bdf8" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.45" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Icon Background rounded rect -->
+  <rect width="512" height="512" rx="112" fill="url(#iconBg)" stroke="#1e293b" stroke-width="4" />
+
+  <!-- Outer ambient glow ring -->
+  <circle cx="256" cy="270" r="160" fill="#0891b2" opacity="0.18" filter="url(#glow)" />
+
+  <!-- Berzelius Beaker Icon Graphic -->
+  <!-- Center X = 256, Width = 180, Height = 320 -->
+  <!-- Left = 166, Right = 346, Top = 120, Bottom = 420 -->
+  <g>
+    <!-- Liquid -->
+    <path d="M 170 240 Q 256 255, 342 240 L 342 405 Q 342 418, 328 418 L 184 418 Q 170 418, 170 405 Z" fill="url(#liquid)" opacity="0.85" />
+    <ellipse cx="256" cy="240" rx="86" ry="10" fill="#67e8f9" opacity="0.9" />
+
+    <!-- Bubbles -->
+    <circle cx="210" cy="380" r="4" fill="#ffffff" opacity="0.8" />
+    <circle cx="230" cy="320" r="6" fill="#ffffff" opacity="0.7" />
+    <circle cx="290" cy="360" r="5" fill="#ffffff" opacity="0.8" />
+    <circle cx="270" cy="280" r="7" fill="#ffffff" opacity="0.9" />
+
+    <!-- Beaker Body -->
+    <rect x="166" y="130" width="180" height="290" rx="14" fill="url(#glass)" stroke="#7dd3fc" stroke-width="4" />
+
+    <!-- Spout & Rim -->
+    <path d="M 152 124 Q 162 128, 168 130 L 344 130 Q 352 130, 352 126 Q 352 122, 344 122 L 164 122 Q 154 122, 152 124 Z" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2" />
+    <ellipse cx="256" cy="126" rx="88" ry="8" fill="none" stroke="#bae6fd" stroke-width="3" />
+
+    <!-- Graduations -->
+    <line x1="188" y1="180" x2="225" y2="180" stroke="#ffffff" stroke-width="3" opacity="0.8" />
+    <line x1="188" y1="230" x2="240" y2="230" stroke-width="3.5" stroke="#ffffff" opacity="0.9" />
+    <line x1="188" y1="280" x2="220" y2="280" stroke="#ffffff" stroke-width="3" opacity="0.8" />
+    <line x1="188" y1="330" x2="240" y2="330" stroke-width="3.5" stroke="#ffffff" opacity="0.9" />
+    <line x1="188" y1="380" x2="220" y2="380" stroke="#ffffff" stroke-width="3" opacity="0.8" />
+
+    <!-- Highlight Reflection -->
+    <path d="M 176 145 L 176 400" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.5" />
+  </g>
+
+  <!-- Distro Monogram / Text -->
+  <text x="256" y="475" fill="#38bdf8" font-family="'DejaVu Sans', sans-serif" font-size="32" font-weight="bold" text-anchor="middle" letter-spacing="4">
+    BERZELIUS
+  </text>
+</svg>

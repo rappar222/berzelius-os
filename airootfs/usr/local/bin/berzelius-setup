@@ -1,0 +1,26 @@
+#!/bin/bash
+# Live environment setup for BerzeliusOS
+set -e
+
+# Run systemd-sysusers to ensure all users and groups are loaded
+systemd-sysusers 2>/dev/null || true
+
+# Set password radu for radu and root
+echo "radu:radu" | chpasswd 2>/dev/null || true
+echo "root:radu" | chpasswd 2>/dev/null || true
+
+# Ensure radu is in autologin group
+groupadd -r autologin 2>/dev/null || true
+usermod -aG autologin,wheel,video,audio,storage,optical,network,input radu 2>/dev/null || true
+
+# Ensure home directory permissions
+if [ -d "/home/radu" ]; then
+    chown -R radu:users /home/radu/ 2>/dev/null || true
+fi
+
+# Configure NetworkManager
+if command -v systemctl >/dev/null 2>&1; then
+    systemctl enable NetworkManager.service 2>/dev/null || true
+fi
+
+exit 0
