@@ -35,7 +35,6 @@ less
 licenses
 linux
 linux-firmware
-linux-headers
 logrotate
 lvm2
 man-db
@@ -66,7 +65,6 @@ syslinux
 systemd
 systemd-sysvcompat
 tar
-texinfo
 usbutils
 util-linux
 vim
