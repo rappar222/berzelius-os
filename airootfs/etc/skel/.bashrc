@@ -13,6 +13,7 @@ alias calc='berzelius-calc'
 alias titrate='berzelius-calc --titrate'
 alias prep='berzelius-calc --prep'
 alias install-os='sudo archinstall'
+alias update='sudo berzelius-update'
 alias fetch='fastfetch -c /etc/fastfetch/config.jsonc'
 
 # Berzelius Laboratory Prompt

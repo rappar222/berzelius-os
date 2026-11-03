@@ -128,15 +128,26 @@ cat << 'EOF' > /etc/fastfetch/config.jsonc
 EOF
 cp /etc/fastfetch/config.jsonc /etc/xdg/fastfetch/config.jsonc
 
-# 5. Add alias and prompt to bashrc if desired
+# 5. Install berzelius-update and glassware tools
+mkdir -p /usr/local/bin
+curl -sL https://raw.githubusercontent.com/rappar222/berzelius-os/main/airootfs/usr/local/bin/berzelius-update -o /usr/local/bin/berzelius-update || true
+curl -sL https://raw.githubusercontent.com/rappar222/berzelius-os/main/airootfs/usr/local/bin/berzelius-calc -o /usr/local/bin/berzelius-calc || true
+curl -sL https://raw.githubusercontent.com/rappar222/berzelius-os/main/airootfs/usr/local/bin/periodic -o /usr/local/bin/periodic || true
+curl -sL https://raw.githubusercontent.com/rappar222/berzelius-os/main/airootfs/usr/local/bin/berzelius-welcome -o /usr/local/bin/berzelius-welcome || true
+chmod +x /usr/local/bin/berzelius-* /usr/local/bin/periodic 2>/dev/null || true
+
+# 6. Add alias and prompt to bashrc if desired
 TARGET_USER="${SUDO_USER:-$USER}"
 USER_HOME=$(eval echo "~$TARGET_USER")
 if [ -f "$USER_HOME/.bashrc" ]; then
     if ! grep -q "fastfetch" "$USER_HOME/.bashrc"; then
         echo "alias fetch='fastfetch'" >> "$USER_HOME/.bashrc"
     fi
+    if ! grep -q "berzelius-update" "$USER_HOME/.bashrc"; then
+        echo "alias update='sudo berzelius-update'" >> "$USER_HOME/.bashrc"
+    fi
 fi
 
-echo "✅ BerzeliusOS identity installed successfully!"
+echo "✅ BerzeliusOS identity and berzelius-update installed successfully!"
 echo ""
 fastfetch || true

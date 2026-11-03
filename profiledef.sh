@@ -21,6 +21,7 @@ file_permissions=(
   ["/home/radu"]="1000:1000:755"
   ["/usr/local/bin/berzelius-welcome"]="0:0:755"
   ["/usr/local/bin/berzelius-calc"]="0:0:755"
+  ["/usr/local/bin/berzelius-update"]="0:0:755"
   ["/usr/local/bin/periodic"]="0:0:755"
   ["/usr/local/bin/berzelius-setup"]="0:0:755"
 )
